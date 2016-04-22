@@ -2,6 +2,9 @@
 ##Meteor For Everyone Tutorial  
 ###Meteor For Everyone Tutorial #1 - Installing Meteor & Creating a Project  
   
+####console output
+
+```Console  
 highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions $ meteor create resolutions
 Created a new Meteor app in 'resolutions'.    
 
@@ -12,10 +15,6 @@ To run your new app:
 If you are new to Meteor, try some of the learning resources here:
   https://www.meteor.com/learn                
 
-
-####console output
-
-```Console
                                               
 highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions $ cd resolutions
 highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions $ ls -hal  
