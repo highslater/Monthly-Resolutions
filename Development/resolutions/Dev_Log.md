@@ -1,7 +1,7 @@
 #Level Up Tuts:  
 ##Meteor For Everyone Tutorial  
 ###Meteor For Everyone Tutorial #1 - Installing Meteor & Creating a Project  
-
+  
 ####console output
 
 ```Console  
@@ -38,5 +38,3 @@ highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutio
 => App running at: http://localhost:3000/
 
 ```
-
-###Meteor For Everyone Tutorial #2 - Default Meteor Files
