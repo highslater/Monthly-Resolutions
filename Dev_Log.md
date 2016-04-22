@@ -1,2 +1,2 @@
-##Level Up Tuts  
-###Meteor For Everyone Tutorial
+#Level Up Tuts:  
+##Meteor For Everyone Tutorial
