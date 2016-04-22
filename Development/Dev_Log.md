@@ -39,6 +39,9 @@ highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutio
 
 ```
 
+#####Web Page Created:  
+
+
 ![resolutions/Images/Selection_001.png](resolutions/Images/Selection_001.png)
 
 ###Meteor For Everyone Tutorial #2 - Default Meteor Files
