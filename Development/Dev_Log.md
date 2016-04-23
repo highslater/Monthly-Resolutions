@@ -119,4 +119,51 @@ Meteor.startup(() => {
 
 ###Meteor For Everyone Tutorial #2 - Default Meteor Files  
 
-![resolutions/Images/Selection_002.png](resolutions/Images/Selection_002.png)
+![resolutions/Images/Selection_002.png](resolutions/Images/Selection_002.png)  
+
+###Meteor For Everyone Tutorial #3 - Views & Templates In Meteor  
+
+####client/main.html  
+
+```HTML
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+
+  <ul>
+    {{#each resolutions}}
+      {{> resolution}}
+    {{/each}}
+  </ul>
+</body>
+
+<template name="resolution">
+  <li>
+    {{title}}
+  </li>
+</template>
+
+```  
+
+####client/main.js  
+
+```JavaScript  
+
+// import { Template } from 'meteor/templating';
+// import { ReactiveVar } from 'meteor/reactive-var';
+// import './main.html';
+
+Template.body.helpers({
+    resolutions: [
+    {title: "Hello Resolution #1"},
+    {title: "Bye Resolution #2"},
+    {title: "Hello_Goodbye Resolution"}
+    ]
+}); // end of Template.body.helpers
+
+```
+
+![resolutions/Images/Selection_003.png](resolutions/Images/Selection_003.png)  
