@@ -119,3 +119,4 @@ Meteor.startup(() => {
 
 ###Meteor For Everyone Tutorial #2 - Default Meteor Files  
 
+![resolutions/Images/Selection_002.png](resolutions/Images/Selection_002.png)
