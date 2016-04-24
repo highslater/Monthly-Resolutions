@@ -15,9 +15,9 @@ To run your new app:
 If you are new to Meteor, try some of the learning resources here:
   https://www.meteor.com/learn                
                                               
-@mint64 ~resolutions_Original 
+@mint64 ~/resolutions_Original 
 $ cd resolutions
-@mint64 ~resolutions_Original/resolutions 
+@mint64 ~/resolutions_Original/resolutions 
 $ ls -hal
 total 28K
 drwxr-xr-x 5 highslater highslater 4.0K Apr 23 21:50 .
