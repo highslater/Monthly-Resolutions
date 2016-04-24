@@ -34,3 +34,6 @@ highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutio
 => App running at: http://localhost:3000/
 
 ```
+
+
+![Images/Selection_001.png](Images/Selection_001.png)
