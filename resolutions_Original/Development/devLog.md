@@ -34,22 +34,3 @@ highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutio
 => App running at: http://localhost:3000/
 
 ```
-
-
-```Console
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions $ git add --all
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions $ git commit -am "commit"
-[master b38213a] commit
- 2 files changed, 37 insertions(+), 2 deletions(-)
- rewrite resolutions_Original/Development/devLog.md (100%)
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions $ git push
-Counting objects: 15, done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (7/7), done.
-Writing objects: 100% (8/8), 1.03 KiB | 0 bytes/s, done.
-Total 8 (delta 4), reused 0 (delta 0)
-To git@github.com:highslater/Monthly-Resolutions.git
-   76c7d8e..b38213a  master -> master
-
-
-```
