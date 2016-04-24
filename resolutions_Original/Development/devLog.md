@@ -6,6 +6,7 @@
 ```Console  
 @mint64 ~resolutions_Original 
 $ meteor create resolutions
+
 Created a new Meteor app in 'resolutions'.    
 
 To run your new app:                          
@@ -17,8 +18,10 @@ If you are new to Meteor, try some of the learning resources here:
                                               
 @mint64 ~/Monthly_Resolutions/resolutions_Original 
 $ cd resolutions
+
 @mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
 $ ls -hal
+
 total 28K
 drwxr-xr-x 5 highslater highslater 4.0K Apr 23 21:50 .
 drwxr-xr-x 4 highslater highslater 4.0K Apr 23 21:50 ..
