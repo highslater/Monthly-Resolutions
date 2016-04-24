@@ -16,7 +16,7 @@ If you are new to Meteor, try some of the learning resources here:
   https://www.meteor.com/learn                
                                               
 @mint64 ~resolutions_Original 
-$ cd resolutions/
+$ cd resolutions
 @mint64 ~resolutions_Original/resolutions 
 $ ls -hal
 total 28K
@@ -28,9 +28,6 @@ drwxr-xr-x 3 highslater highslater 4.0K Apr 23 21:50 .meteor
 -rw-r--r-- 1 highslater highslater  152 Apr 23 21:50 package.json
 drwxr-xr-x 2 highslater highslater 4.0K Apr 23 21:50 server
 @mint64 ~resolutions_Original/resolutions $ meteor
-[[[[[                                         
-~resolutions_Original/resolutions
-]]]]]
 
 => Started proxy.                             
 => Started MongoDB.                           
