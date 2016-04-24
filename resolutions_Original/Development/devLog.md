@@ -4,7 +4,7 @@
 
 ####Console Output:
 ```Console  
-@mint64 ~resolutions_Original 
+@mint64 ~/Monthly_Resolutions/resolutions_Original 
 $ meteor create resolutions
 
 Created a new Meteor app in 'resolutions'.    
