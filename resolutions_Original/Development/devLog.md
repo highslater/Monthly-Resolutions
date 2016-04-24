@@ -129,3 +129,64 @@ Meteor.startup(() => {
 
 ###And Change Files to:  
 
+####resolutions.html  
+
+```HTML
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
+  {{> info}}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="info">
+  <h2>Learn Meteor!</h2>
+  <ul>
+    <li><a href="https://www.meteor.com/try">Do the Tutorial</a></li>
+    <li><a href="http://guide.meteor.com">Follow the Guide</a></li>
+    <li><a href="https://docs.meteor.com">Read the Docs</a></li>
+    <li><a href="https://forums.meteor.com">Discussions</a></li>
+  </ul>
+</template>
+
+```
+
+####resolutions.js  
+
+```JavaScript  
+if (Meteor.isClient) {
+  Template.hello.onCreated(function helloOnCreated() {
+    // counter starts at 0
+    this.counter = new ReactiveVar(0);
+  });
+
+  Template.hello.helpers({
+    counter() {
+      return Template.instance().counter.get();
+    },
+  });
+
+  Template.hello.events({
+    'click button'(event, instance) {
+      // increment the counter when button is clicked
+      instance.counter.set(instance.counter.get() + 1);
+    },
+  });
+  }
+
+if (Meteor.isServer) {
+  Meteor.startup(() => {
+    // code to run on server at startup
+  });
+}
+```
