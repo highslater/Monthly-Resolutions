@@ -1,6 +1,8 @@
 <!-- devLog -->
 ###Meteor For Everyone Tutorial #1 - Installing Meteor & Creating a Project:  
 
+
+####Console Output
 ```Console  
 highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_Original $ meteor create resolutions
 Created a new Meteor app in 'resolutions'.    
