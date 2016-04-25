@@ -5,7 +5,9 @@
 
 ```Console
 
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem $ meteor create resolutions
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem 
+$ meteor create resolutions
+
 Created a new Meteor app in 'resolutions'.    
 
 To run your new app:                          
@@ -15,10 +17,14 @@ To run your new app:
 If you are new to Meteor, try some of the learning resources here:
   https://www.meteor.com/learn                
                                               
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem $ ls
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem 
+$ ls
 Development  resolutions
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem $ cd resolutions
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions $ ls -hal
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem 
+$ cd resolutions
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions 
+$ ls -hal
+
 total 28K
 drwxr-xr-x 5 highslater highslater 4.0K Apr 24 21:21 .
 drwxr-xr-x 4 highslater highslater 4.0K Apr 24 21:21 ..
@@ -27,7 +33,9 @@ drwxr-xr-x 2 highslater highslater 4.0K Apr 24 21:21 client
 drwxr-xr-x 3 highslater highslater 4.0K Apr 24 21:22 .meteor
 -rw-r--r-- 1 highslater highslater  152 Apr 24 21:21 package.json
 drwxr-xr-x 2 highslater highslater 4.0K Apr 24 21:21 server
-highslater@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions $ meteor
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions 
+$ meteor
+
 [[[[[ ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions ]]]]]
 
 => Started proxy.                             
