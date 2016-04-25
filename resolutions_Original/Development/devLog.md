@@ -115,7 +115,7 @@ Meteor.startup(() => {
 
 ####Web Output:  
 
-![../resolutions/Images/Selection_001.png](../resolutions/Images/Selection_001.png)
+![devImages/Selection_001.png](devImages/Selection_001.png)
 
 ###Change File Structure:
 
