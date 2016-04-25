@@ -36,7 +36,7 @@ drwxr-xr-x 2 highslater highslater 4.0K Apr 24 21:21 server
 @mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions 
 $ meteor
 
-[[[[[ ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions ]]]]]
+[[[[[ ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions ]]]]]
 
 => Started proxy.                             
 => Started MongoDB.                           
