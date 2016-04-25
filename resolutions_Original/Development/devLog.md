@@ -121,11 +121,11 @@ Meteor.startup(() => {
 
 ####From:
 
-![../resolutions/Images/Selection_002.png](../resolutions/Images/Selection_002.png)  
+![devImages/Selection_002.png](devImages/Selection_002.png)  
 
 ####To:  
 
-![../resolutions/Images/Selection_003.png](../resolutions/Images/Selection_003.png) 
+![devImages/Selection_003.png](devImages/Selection_003.png) 
 
 ###And Change Files to:  
 
