@@ -1,7 +1,7 @@
 <!-- devLog -->
 ###Meteor For Everyone Tutorial #1 - Installing Meteor & Creating a Project:  
 
-####Console Output:
+######Console Output:
 
 ```Console
 
@@ -46,7 +46,7 @@ $ meteor
 
 ```
 
-####client/main.html  
+######client/main.html  
 
 ```HTML
 
@@ -78,7 +78,7 @@ $ meteor
 
 ```
 
-####client/main.js
+######client/main.js
 
 ```JavaScript
 
@@ -107,7 +107,7 @@ Template.hello.events({
 
 ```
 
-####server/main.js  
+######server/main.js  
 
 ```JavaScript 
 
@@ -118,3 +118,6 @@ Meteor.startup(() => {
 });
 
 ```
+
+####Web Output:  
+
