@@ -242,7 +242,25 @@ if (Meteor.isServer) {
 
 ![devImages/Selection_004.png](devImages/Selection_004.png) 
 
-####Meteor For Everyone Tutorial #4 - Storing Data In Collections:
+###Meteor For Everyone Tutorial #4 - Storing Data In Collections:
+
+######resolutions.js  
+
+```JavaScript  
+Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isClient) {
+  Template.body.helpers({
+    resolutions: function() {
+        return Resolutions.find();
+    }
+  });
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+
+```
 
 ######Console Output:
 
@@ -263,20 +281,9 @@ meteor:PRIMARY>
 
 ```
 
-######resolutions.js  
 
-```JavaScript 
 
-Resolutions = new Mongo.Collection('resolutions');
 
-if (Meteor.isClient) {
-  Template.body.helpers({
-    resolutions: function() {
-        return Resolutions.find();
-    }
-  });
-} // end of if (Meteor.isClient)
 
-if (Meteor.isServer) {
-} // end of if (Meteor.isServer)
-```  
+
+
