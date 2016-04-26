@@ -132,3 +132,64 @@ Meteor.startup(() => {
 #####To This File Structure:  
 
 ![devImages/Selection_003.png](devImages/Selection_003.png)
+
+######client/main.html  
+
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+```
+
+######client/main.js  
+
+```JavaScript
+
+import '../imports/ui/body.js';
+
+```
+
+######imports/ui/body.html  
+
+```HTML
+
+<body>
+  <ul>
+
+  {{#each resolutions}}
+    {{> resolution}}
+  {{/each}}
+  
+  </ul>
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li>
+</template>
+
+```
+
+######imports/ui/body.js  
+
+```JavaScript
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+
+import './body.html';
+
+Template.body.helpers({
+    resolutions: [
+        {title: "Hello Resolution #1"},
+        {title: "Hello Resolution #2"},
+        {title: "Hello Resolution #3"}
+    ]
+});
+
+```
+
+######Web Output:
+
+![devImages/Selection_004.png](devImages/Selection_004.png)
