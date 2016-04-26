@@ -277,8 +277,9 @@ meteor:PRIMARY> db.resolutions.insert({title: "Hello Resolution #2", createdAt: 
 WriteResult({ "nInserted" : 1 })
 meteor:PRIMARY> db.resolutions.insert({title: "Hello Resolution #3", createdAt: new Date()});
 WriteResult({ "nInserted" : 1 })
-meteor:PRIMARY> 
-
+meteor:PRIMARY> ^C
+bye
+ 
 ```
 
 ######Web Output:  
