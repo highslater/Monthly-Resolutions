@@ -1,28 +1,15 @@
 
 
 if (Meteor.isClient) {
-  Template.hello.onCreated(function helloOnCreated() {
-    // counter starts at 0
-    this.counter = new ReactiveVar(0);
+  Template.body.helpers({
+    resolutions: [
+    {title: "Hello Resolution #1"},
+    {title: "Hello Resolution #2"},
+    {title: "Hello Resolution #3"}
+    ]
   });
-
-  Template.hello.helpers({
-    counter() {
-      return Template.instance().counter.get();
-    },
-  });
-
-  Template.hello.events({
-    'click button'(event, instance) {
-      // increment the counter when button is clicked
-      instance.counter.set(instance.counter.get() + 1);
-    },
-  });
-  }
+} // end of if (Meteor.isClient)
 
 if (Meteor.isServer) {
-  Meteor.startup(() => {
-    // code to run on server at startup
-  });
-}
+} // end of if (Meteor.isServer)
 

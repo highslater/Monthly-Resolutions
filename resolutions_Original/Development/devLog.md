@@ -163,7 +163,8 @@ Meteor.startup(() => {
 
 ####resolutions.js  
 
-```JavaScript  
+```JavaScript
+
 if (Meteor.isClient) {
   Template.hello.onCreated(function helloOnCreated() {
     // counter starts at 0
@@ -189,4 +190,54 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
 ```
+
+###Meteor For Everyone Tutorial #3 - Views & Templates In Meteor:  
+
+######resolutions.html  
+
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+<ul>
+
+  {{#each resolutions}}
+    {{> resolution}}
+  {{/each}}
+
+  </ul>
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li>
+</template>
+
+```
+
+######resolutions.js  
+
+```JavaScript  
+
+if (Meteor.isClient) {
+  Template.body.helpers({
+    resolutions: [
+    {title: "Hello Resolution #1"},
+    {title: "Hello Resolution #2"},
+    {title: "Hello Resolution #3"}
+    ]
+  });
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+
+```
+
+######Web Output:
+
+![devImages/Selection_004.png](devImages/Selection_004.png) 
