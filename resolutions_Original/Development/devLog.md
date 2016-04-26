@@ -287,6 +287,87 @@ bye
 ![devImages/Selection_005.png](devImages/Selection_005.png)
 
 
+###Meteor For Everyone Tutorial #5 - Adding Data With Forms: 
+
+######resolutions.html  
+
+
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit">
+            </form>
+        </header>
+        <ul>
+              {{#each resolutions}}
+                {{> resolution}}
+              {{/each}}
+        </ul>
+    </div>
+
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li>
+</template>
+
+```
+
+######resolutions.js  
+
+
+```JavaScript  
+
+Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isClient) {
+
+  Template.body.helpers({
+    resolutions: function() {
+        return Resolutions.find();
+    } // end of resolutions
+  });// end of Template.body.helpers
+
+  Template.body.events( {
+    'submit .new-resolution': function(event) {
+        var title = event.target.title.value;
+        Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+
+        event.target.title.value = "";
+        return false;
+        
+    }, // end of submit .new-resolution
+  }); // end of Template.body.events
+
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+
+```
+
+######Web Output:  
+
+![devImages/Selection_006.png](devImages/Selection_006.png)
+
+
+
+
+
+
 
 
 
