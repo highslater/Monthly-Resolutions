@@ -122,3 +122,13 @@ Meteor.startup(() => {
 ######Web Output:  
 
 ![devImages/Selection_001.png](devImages/Selection_001.png)
+
+###Meteor For Everyone Tutorial #3 - Views & Templates In Meteor:  
+
+#####Change This File Structure:  
+
+![devImages/Selection_001.png](devImages/Selection_002.png)  
+
+#####To This File Structure:  
+
+![devImages/Selection_003.png](devImages/Selection_003.png)
