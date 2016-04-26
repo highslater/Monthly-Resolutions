@@ -3,10 +3,10 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
+Resolutions = new Mongo.Collection('resolutions');
+
 Template.body.helpers({
-    resolutions: [
-        {title: "Hello Resolution #1"},
-        {title: "Hello Resolution #2"}, 
-        {title: "Hello Resolution #3"} 
-    ]
+    resolutions: function() {
+        return Resolutions.find();
+    }
 }); // end of Template.body.helpers
