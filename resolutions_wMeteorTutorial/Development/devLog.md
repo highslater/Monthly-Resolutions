@@ -264,6 +264,8 @@ meteor:PRIMARY>
 ![devImages/Selection_005.png](devImages/Selection_005.png)  
 
 
+######File Structure:
 
+![devImages/Selection_006.png](devImages/Selection_006.png)  
 
 
