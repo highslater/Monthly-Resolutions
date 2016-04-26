@@ -192,4 +192,78 @@ Template.body.helpers({
 
 ######Web Output:
 
-![devImages/Selection_004.png](devImages/Selection_004.png)
+![devImages/Selection_004.png](devImages/Selection_004.png)  
+
+###Meteor For Everyone Tutorial #4 - Storing Data In Collections:  
+
+
+######imports/api/resolutions.js  
+
+```JavaScript 
+
+import { Mongo } from 'meteor/mongo';
+
+export const Resolutions = new Mongo.Collection('resolutions');
+
+```
+
+
+######server/main.js  
+
+```JavaScript  
+
+import { Meteor } from 'meteor/meteor';
+import '../imports/api/resolutions.js';
+
+Meteor.startup(() => {
+  // code to run on server at startup
+});
+
+```
+
+
+######imports/ui/body.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Resolutions } from '../api/resolutions.js';
+import './body.html';
+
+
+Template.body.helpers({
+    resolutions: function() {
+        return Resolutions.find();
+    }
+});
+
+```
+
+######Console Output:
+
+```Console 
+
+@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor mongo
+
+MongoDB shell version: 2.6.7
+connecting to: 127.0.0.1:3001/meteor
+meteor:PRIMARY> db.resolutions.insert({ text: "Hello Resolutions #1", createdAt: new Date() });
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> db.resolutions.insert({ text: "Hello Resolutions #2", createdAt: new Date() });
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> db.resolutions.insert({ text: "Hello Resolutions #3", createdAt: new Date() });
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> 
+
+```
+
+######Web Output:
+
+![devImages/Selection_005.png](devImages/Selection_005.png)  
+
+
+
+
+
