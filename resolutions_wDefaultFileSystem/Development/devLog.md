@@ -122,3 +122,52 @@ Meteor.startup(() => {
 ######Web Output:  
 
 ![devImages/Selection_001.png](devImages/Selection_001.png)
+
+###Meteor For Everyone Tutorial #3 - Views & Templates In Meteor:  
+
+######client/main.html  
+
+```HTML 
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+  <ul>
+
+  {{#each resolutions}}
+    {{> resolution}}
+  {{/each}}
+
+  </ul>
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li>
+</template>
+
+```
+
+######client/main.js  
+
+```JavaScript 
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+
+import './main.html';
+
+Template.body.helpers({
+    resolutions: [
+        {title: "Hello Resolution #1"},
+        {title: "Hello Resolution #2"}, 
+        {title: "Hello Resolution #3"} 
+    ]
+}); // end of Template.body.helpers
+
+```
+
+######Web Output:  
+
+![devImages/Selection_002.png](devImages/Selection_002.png)
