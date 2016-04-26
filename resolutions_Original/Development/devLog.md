@@ -241,3 +241,42 @@ if (Meteor.isServer) {
 ######Web Output:
 
 ![devImages/Selection_004.png](devImages/Selection_004.png) 
+
+####Meteor For Everyone Tutorial #4 - Storing Data In Collections:
+
+######Console Output:
+
+```Console 
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor mongo
+
+MongoDB shell version: 2.6.7
+connecting to: 127.0.0.1:3001/meteor
+meteor:PRIMARY> db.resolutions.insert({title: "Hello Resolution #1", createdAt: new Date()});
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> db.resolutions.insert({title: "Hello Resolution #2", createdAt: new Date()});
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> db.resolutions.insert({title: "Hello Resolution #3", createdAt: new Date()});
+WriteResult({ "nInserted" : 1 })
+meteor:PRIMARY> 
+
+```
+
+######resolutions.js  
+
+```JavaScript 
+
+Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isClient) {
+  Template.body.helpers({
+    resolutions: function() {
+        return Resolutions.find();
+    }
+  });
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+```  
