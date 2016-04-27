@@ -268,4 +268,81 @@ meteor:PRIMARY>
 
 ![devImages/Selection_006.png](devImages/Selection_006.png)  
 
+###Meteor For Everyone Tutorial #5 - Adding Data With Forms:  
+
+######imports/ui/body.html  
+
+```HTML  
+
+<body>
+<div class="container">
+    <header>
+        <h1>Monthly Resolutions</h1>
+        <form class="new-resolution">
+            <input type="text" name="text" placeholder="A New Resolution">
+            <input type="submit" value="Submit">
+        </form>
+    </header>
+    <ul>
+        {{#each resolutions}}
+          {{> resolution}}
+        {{/each}}
+    </ul>
+</div>
+</body>
+<template name="resolution">
+  <li>{{text}}</li>
+</template>
+
+```
+
+######imports/ui/body.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Resolutions } from '../api/resolutions.js';
+import './body.html';
+
+
+Template.body.helpers({
+    resolutions: function() {
+        // see the newest tasks first.
+        return Resolutions.find({}, { sort: {createdAt: -1} });
+    } // end of resolutions
+}); // end of Template.body.helpers
+
+Template.body.events({
+    'submit .new-resolution': function(event) {
+        // Prevent default browser form submit
+        event.preventDefault();
+
+        // Get value from form element
+        const target = event.target;
+        const text = target.text.value; 
+
+        // Insert a task into the collection
+        Resolutions.insert({
+            text,
+            createdAt: new Date() // current time
+        }); // end of Resolutions.insert
+
+        // Clear form
+        target.text.value = "";
+
+    } // end of submit .new-resolution
+}); // end of Template.body.events
+
+```
+
+
+######Web Output:  
+
+![devImages/Selection_007.png](devImages/Selection_007.png)  
+
+
+
+
+
 
