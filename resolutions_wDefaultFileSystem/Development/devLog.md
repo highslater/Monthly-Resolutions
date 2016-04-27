@@ -231,14 +231,76 @@ meteor:PRIMARY>
 
 ![devImages/Selection_003.png](devImages/Selection_003.png)
 
+###Meteor For Everyone Tutorial #5 - Adding Data With Forms:
+
+######client/main.html  
 
 
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+  <div class="container">
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit">
+            </form>
+        </header>
+        <ul>
+              {{#each resolutions}}
+                {{> resolution}}
+              {{/each}}
+        </ul> 
+  </div>
+</body>
+
+<template name="resolution">
+  <li>{{title}}</li>
+</template>
+
+```
+
+######client/main.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+
+import './main.html';
+
+Resolutions = new Mongo.Collection('resolutions');
+
+Template.body.helpers({
+    resolutions: function() {
+        return Resolutions.find();
+    }, // end of resolutions
+}); // end of Template.body.helpers
+
+Template.body.events( {
+    'submit .new-resolution': function(event) {
+        var title = event.target.title.value;
+
+        Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+
+        event.target.title.value = "";
+        return false;
+
+    }, // end of submit .new-resolution
+});
+
+```
 
 
-
-
-
-
+![devImages/Selection_004.png](devImages/Selection_004.png)
 
 
 
