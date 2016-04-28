@@ -34,6 +34,7 @@
       margin-bottom: 10px;
       display: inline-block;
       margin-right: 1em;
+      color: green;
     }
 
     .new-resolution input[type="text"] {
@@ -45,7 +46,7 @@
       font-size: 1em;
       border-bottom: 1px solid rgba(0,0,0,0.3);
     }
-
+    
     .new-resolution input:focus{
       outline: 0;
     }
@@ -58,12 +59,12 @@
 
     .delete {
       float: right;
-      font-weight: bold;
-      background: #DE4F4F;
-      color: #FFF;
-      font-size: 1em;
+      font-weight: ;
+      background: ;
+      color: #333;
+      font-size: 0.9em;
       padding: 5px 10px;
-      border: none;
+      border: 1px solid #333;
       border-radius: 4px;;
     }
 
@@ -84,4 +85,11 @@
 
     li.checked .text {
       text-decoration: line-through;
+    }
+
+    .green {
+      color: green;
+      border: 1px solid green;
+      border-radius: 2px;
+      padding: 3px 8px;
     }
