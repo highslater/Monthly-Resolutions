@@ -342,7 +342,117 @@ Template.body.events({
 ![devImages/Selection_007.png](devImages/Selection_007.png)  
 
 
+###Meteor For Everyone Tutorial #6 - Deleting & Updating Collections In Meteor:  
+
+######imports/ui/body.html  
+
+```HTML  
+
+<body>
+<div class="container">
+    <header>
+        <h1>Monthly Resolutions</h1>
+        <form class="new-resolution">
+            <input type="text" name="text" placeholder="A New Resolution">
+            <input type="submit" value="Submit">
+        </form>
+    </header>
+    <ul>
+        {{#each resolutions}}
+          {{> resolution}}
+        {{/each}}
+    </ul>
+</div>
+</body>
+
+```
+
+
+######imports/ui/body.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Resolutions } from '../api/resolutions.js';
+import './resolution.js';
+import './body.html';
 
 
 
+Template.body.helpers({
+    resolutions: function() {
+        // see the newest tasks first.
+        return Resolutions.find({}, { sort: {createdAt: -1} });
+    } // end of resolutions
+}); // end of Template.body.helpers
 
+Template.body.events({
+    'submit .new-resolution': function(event) {
+        // Prevent default browser form submit
+        event.preventDefault();
+
+        // Get value from form element
+        const target = event.target;
+        const text = target.text.value; 
+
+        // Insert a task into the collection
+        Resolutions.insert({
+            text,
+            createdAt: new Date() // current time
+        }); // end of Resolutions.insert
+
+        // Clear form
+        target.text.value = "";
+
+    } // end of submit .new-resolution
+}); // end of Template.body.events
+
+```
+
+######imports/ui/resolution.html  
+
+```HTML  
+
+<template name="resolution">
+    <li class="{{#if checked}} checked {{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text">{{text}}</span>
+        <button class="delete">&times;</button>
+    </li>
+</template>
+
+```
+
+
+######imports/ui/resolution.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Resolutions } from '../api/resolutions.js';
+import './body.html';
+import './resolution.html';
+
+Template.resolution.events({
+    'click .toggle-checked': function() {
+        Resolutions.update(
+            this._id, {
+            $set: {
+                checked: !this.checked
+            }, // end of $set
+        }); // end of Resolutions.update
+    }, // end of click .toggle-checked
+
+    'click .delete': function() {
+        Resolutions.remove(this._id);
+    }, // end of click .delete
+
+}); // end of Template.resolution.events
+
+```
+
+######Web Output:  
+
+![devImages/Selection_008.png](devImages/Selection_008.png)
