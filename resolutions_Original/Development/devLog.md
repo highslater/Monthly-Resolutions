@@ -457,3 +457,132 @@ if (Meteor.isServer) {
 ![devImages/Selection_007.png](devImages/Selection_007.png)
 
 
+###Meteor For Everyone Tutorial #7 - Temporary Session Data in Meteor:  
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor add session
+                                              
+Changes to your project's package version selections:
+                                              
+reactive-dict  added, version 1.1.7           
+session        added, version 1.1.5
+
+                                              
+session: Session variable       
+
+```
+
+######resolutions.html  
+
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <label class="hide-finished">
+                <input type="checkbox" checked="{{hideFinished}}">
+                Hide Finished Resolutions
+            </label>
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit" class="green">
+            </form>
+        </header>
+        <ul>
+              {{#each resolutions}}
+                {{> resolution}}
+              {{/each}}
+        </ul>
+    </div>
+
+</body>
+
+<template name="resolution">
+  <li class="{{#if checked}}checked{{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text">{{title}}</span>
+        <button class="delete">Remove</button>
+  </li>
+</template>
+
+
+```
+
+
+######resolutions.js  
+
+```JavaScript  
+
+Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isClient) {
+
+    Template.body.helpers({
+        resolutions: function() {
+            if (Session.get('hideFinished')) {
+               return Resolutions.find({checked: {$ne: true}}); 
+            }// end of if
+            else {
+                return Resolutions.find();
+            } // end of else
+        }, // end of resolutions
+        hideFinished: function() {
+            return Session.get('hideFinished');
+        }, // end of hideFinished
+    });// end of Template.body.helpers
+
+    Template.body.events( {
+        'submit .new-resolution': function(event) {
+            var title = event.target.title.value;
+            Resolutions.insert({
+                title: title,
+                createdAt: new Date()
+            }); // end of Resolutions.insert
+            event.target.title.value = "";
+            return false;
+        }, // end of submit .new-resolution
+
+        'change .hide-finished': function(event) { // don't forget the dot
+            Session.set('hideFinished', event.target.checked);
+        }, // end of change hide-finished
+    }); // end of Template.body.events
+
+    Template.resolution.events({
+        'click .toggle-checked': function() {
+            Resolutions.update(this._id, {
+                $set: {
+                    checked: !this.checked
+                } // end of $set
+            }); // end of Resolutions.update
+        }, // end of click .toggle-checked
+        'click .delete': function() {
+            Resolutions.remove(this._id);
+        }, // end of click .delete
+    }); // end of Template.resolution.events
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+
+
+
+```
+
+
+######Web Output:  
+
+######Unchecked:  
+
+![devImages/Selection_008.png](devImages/Selection_008.png)  
+
+######Checked:  
+
+![devImages/Selection_009.png](devImages/Selection_009.png)  
