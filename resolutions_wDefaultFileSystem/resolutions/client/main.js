@@ -25,3 +25,23 @@ Template.body.events( {
 
     }, // end of submit .new-resolution
 });
+
+Template.resolution.events({
+
+    'click .toggle-checked': function () {
+        Resolutions.update(this._id, {
+            $set: {
+                checked: !this.checked
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of click .toggle-checked
+
+    'click .delete': function () {
+        Resolutions.remove(this._id);
+    }, // end of click .delete
+}); // end of Template.resolution.events
+
+
+
+
+

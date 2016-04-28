@@ -1,9 +1,9 @@
 <head>
-  <title>simple</title>
+    <title>simple</title>
 </head>
 
 <body>
-  <div class="container">
+    <div class="container">
         <header>
             <h1>Monthly Resolutions</h1>
             <form class="new-resolution">
@@ -12,13 +12,19 @@
             </form>
         </header>
         <ul>
-              {{#each resolutions}}
-                {{> resolution}}
-              {{/each}}
-        </ul> 
+            {{#each resolutions}}
+            {{> resolution}}
+            {{/each}}
+      </ul> 
   </div>
 </body>
 
 <template name="resolution">
-  <li>{{title}}</li>
+    <li class="{{#if checked}} checked {{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text">{{title}}</span>
+        <button class="delete">Remove</button>
+    </li>
 </template>
+
+

@@ -302,7 +302,82 @@ Template.body.events( {
 
 ![devImages/Selection_004.png](devImages/Selection_004.png)
 
+###Meteor For Everyone Tutorial #6 - Deleting & Updating Collections In Meteor:  
+
+######client/main.html  
+
+```HTML  
+
+<head>
+    <title>simple</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit">
+            </form>
+        </header>
+        <ul>
+            {{#each resolutions}}
+            {{> resolution}}
+            {{/each}}
+      </ul> 
+  </div>
+</body>
+
+<template name="resolution">
+    <li class="{{#if checked}} checked {{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text">{{title}}</span>
+        <button class="delete">Remove</button>
+    </li>
+</template>
+
+```
+
+######client/main.js  
+
+```JavaScript  
 
 
+Template.body.events( {
+    'submit .new-resolution': function(event) {
+        var title = event.target.title.value;
+
+        Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+
+        event.target.title.value = "";
+        return false;
+
+    }, // end of submit .new-resolution
+});
+
+Template.resolution.events({
+
+    'click .toggle-checked': function () {
+        Resolutions.update(this._id, {
+            $set: {
+                checked: !this.checked
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of click .toggle-checked
+
+    'click .delete': function () {
+        Resolutions.remove(this._id);
+    }, // end of click .delete
+}); // end of Template.resolution.events
+
+```
+
+######Web Output:  
+
+![devImages/Selection_005.png](devImages/Selection_005.png)
 
 
