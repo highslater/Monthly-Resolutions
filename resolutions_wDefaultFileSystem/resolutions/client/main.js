@@ -52,6 +52,8 @@ Template.resolution.events({
 }); // end of Template.resolution.events
 
 
-
+Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+});
 
 
