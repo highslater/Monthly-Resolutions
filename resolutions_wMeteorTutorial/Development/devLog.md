@@ -653,6 +653,193 @@ Template.body.events({
 ![devImages/Selection_010.png](devImages/Selection_010.png)
 
 
+###Meteor For Everyone Tutorial #9 - Easy User Accounts With Meteor Accounts UI:  
+
+######Console Output:  
+
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor add accounts-ui accounts-password
+                                              
+Changes to your project's package version selections:
+                                              
+accounts-base          added, version 1.2.7   
+accounts-password      added, version 1.1.8
+accounts-ui            added, version 1.1.9
+accounts-ui-unstyled   added, version 1.1.12
+ddp-rate-limiter       added, version 1.0.4
+email                  added, version 1.0.12
+less                   added, version 2.6.0
+localstorage           added, version 1.0.9
+npm-bcrypt             added, version 0.8.5
+rate-limit             added, version 1.0.4
+service-configuration  added, version 1.0.9
+session                added, version 1.1.5
+sha                    added, version 1.0.7
+srp                    added, version 1.0.8
+                                           
+accounts-ui: Simple templates to add login widgets to an app
+accounts-password: Password support for accounts
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor list
+
+accounts-password      1.1.8  Password support for accounts
+accounts-ui            1.1.9  Simple templates to add login widgets to an app
+autopublish            1.0.7  (For prototyping only) Publish the entire datab...
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+insecure               1.0.7  (For prototyping only) Allow all database write...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-dict          1.1.7  Reactive dictionary
+reactive-var           1.0.9  Reactive variable
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+```
+
+######imports/ui/body.html  
+
+```HTML  
+
+<body>
+<div class="container">
+
+{{>loginButtons}}
+    <header>
+        <h1>Monthly Resolutions</h1>
+        <label class="hide-finished">
+            <input type="checkbox">
+            Hide Finished Resolutions
+        </label>
+    {{#if currentUser}}
+        <form class="new-resolution">
+            <input type="text" name="text" placeholder="A New Resolution">
+            <input type="submit" value="Submit">
+        </form>
+    {{/if}}
+        <h4>Unfinished ({{incompleteCount}})</h4>
+    </header>
+    <ul>
+        {{#each resolutions}}
+          {{> resolution}}
+        {{/each}}
+    </ul>
+</div>
+</body>
+
+```
+
+
+######imports/startup/accounts-config.js  
+
+```JavaScript  
+
+import { Accounts } from 'meteor/accounts-base';
+
+Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY",
+});
+
+```
+
+######client/main.js  
+
+```JavaScript  
+
+import '../imports/ui/body.js';
+import '../imports/startup/accounts-config.js';
+import '../imports/ui/body.js';
+
+```
+
+######imports/ui/body.js  
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
+
+import { Resolutions } from '../api/resolutions.js';
+
+import './resolution.js';
+import './body.html';
+
+Template.body.onCreated(function bodyOnCreated() {
+    this.state = new ReactiveDict();
+}); // end of Template.body.onCreated
+
+Template.body.helpers({
+    resolutions: function() {
+        const instance = Template.instance();
+        if (instance.state.get('hideFinished')) {
+            return Resolutions.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
+        } // end of if
+        else {
+            // see the newest tasks first.
+            return Resolutions.find({}, {sort: {createdAt: -1}});
+        } // end of else
+            // see the newest tasks first.
+            return Resolutions.find({}, { sort: {createdAt: -1} });
+    }, // end of resolutions
+
+    incompleteCount: function() {
+        return Resolutions.find({ checked: {$ne: true }}).count();
+    }, // end of incompleteCount
+}); // end of Template.body.helpers
+
+Template.body.events({
+    'submit .new-resolution': function(event) {
+        // Prevent default browser form submit
+        event.preventDefault();
+        // Get value from form element
+        const target = event.target;
+        const text = target.text.value; 
+        // Insert a task into the collection
+        Resolutions.insert({
+            text,
+            createdAt: new Date(), // current time
+            owner: Meteor.userId(),
+            username: Meteor.user().username
+        }); // end of Resolutions.insert
+        // Clear form
+        target.text.value = "";
+    }, // end of submit .new-resolution
+
+    'change .hide-finished input': function(event, instance) {
+        instance.state.set('hideFinished', event.target.checked);
+    }, // end of change .hide-finished input
+
+
+}); // end of Template.body.events
+
+```
+
+######imports/ui/resolution.html  
+
+```JavaScript  
+
+<template name="resolution">
+    <li class="{{#if checked}} checked {{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+        <button class="delete">&times;</button>
+    </li>
+</template>
+
+```
+
+######Web Output:  
+
+![devImages/Selection_011.png](devImages/Selection_011.png)
 
 
 

@@ -40,7 +40,9 @@ Template.body.events({
         // Insert a task into the collection
         Resolutions.insert({
             text,
-            createdAt: new Date() // current time
+            createdAt: new Date(), // current time
+            owner: Meteor.userId(),
+            username: Meteor.user().username
         }); // end of Resolutions.insert
         // Clear form
         target.text.value = "";
