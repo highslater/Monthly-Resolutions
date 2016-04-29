@@ -585,4 +585,169 @@ if (Meteor.isServer) {
 
 ######Checked:  
 
-![devImages/Selection_009.png](devImages/Selection_009.png)  
+![devImages/Selection_009.png](devImages/Selection_009.png) 
+
+
+###Meteor For Everyone Tutorial #9 - Easy User Accounts With Meteor Accounts UI:  
+
+######Console Output:  
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor add accounts-password accounts-ui
+                                              
+Changes to your project's package version selections:
+                                              
+accounts-base          added, version 1.2.7   
+accounts-password      added, version 1.1.8
+accounts-ui            added, version 1.1.9
+accounts-ui-unstyled   added, version 1.1.12
+ddp-rate-limiter       added, version 1.0.4
+email                  added, version 1.0.12
+less                   added, version 2.6.0
+localstorage           added, version 1.0.9
+npm-bcrypt             added, version 0.8.5
+rate-limit             added, version 1.0.4
+service-configuration  added, version 1.0.9
+sha                    added, version 1.0.7
+srp                    added, version 1.0.8
+                                             
+accounts-password: Password support for accounts
+accounts-ui: Simple templates to add login widgets to an app
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor list
+
+accounts-password      1.1.8  Password support for accounts
+accounts-ui            1.1.9  Simple templates to add login widgets to an app
+autopublish            1.0.7  (For prototyping only) Publish the entire datab...
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+insecure               1.0.7  (For prototyping only) Allow all database write...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-var           1.0.9  Reactive variable
+session                1.1.5  Session variable
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+```
+
+
+######resolutions.html  
+
+
+```HTML  
+
+<head>
+  <title>simple</title>
+</head>
+
+<body>
+
+    <div class="container">
+        {{> loginButtons}}
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <label class="hide-finished">
+                <input type="checkbox" checked="{{hideFinished}}">
+                Hide Finished Resolutions
+            </label>
+        {{#if currentUser}}
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit" class="green">
+            </form>
+        {{/if}}
+        </header>
+        <ul>
+              {{#each resolutions}}
+                {{> resolution}}
+              {{/each}}
+        </ul>
+    </div>
+</body>
+<template name="resolution">
+    <li class="{{#if checked}}checked{{/if}}">
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <span class="text">{{title}}</span>
+        <button class="delete">Remove</button>
+    </li>
+</template>
+
+```
+
+
+######resolutions.js  
+
+```JavaScript  
+
+Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isClient) {
+
+    Template.body.helpers({
+        resolutions: function() {
+            if (Session.get('hideFinished')) {
+               return Resolutions.find({checked: {$ne: true}}); 
+            }// end of if
+            else {
+                return Resolutions.find();
+            } // end of else
+        }, // end of resolutions
+        hideFinished: function() {
+            return Session.get('hideFinished');
+        }, // end of hideFinished
+    });// end of Template.body.helpers
+
+    Template.body.events( {
+        'submit .new-resolution': function(event) {
+            var title = event.target.title.value;
+            Resolutions.insert({
+                title: title,
+                createdAt: new Date()
+            }); // end of Resolutions.insert
+            event.target.title.value = "";
+            return false;
+        }, // end of submit .new-resolution
+
+        'change .hide-finished': function(event) { // don't forget the dot
+            Session.set('hideFinished', event.target.checked);
+        }, // end of change hide-finished
+    }); // end of Template.body.events
+
+    Template.resolution.events({
+        'click .toggle-checked': function() {
+            Resolutions.update(this._id, {
+                $set: {
+                    checked: !this.checked
+                } // end of $set
+            }); // end of Resolutions.update
+        }, // end of click .toggle-checked
+        'click .delete': function() {
+            Resolutions.remove(this._id);
+        }, // end of click .delete
+    }); // end of Template.resolution.events
+
+    Accounts.ui.config({
+        passwordSignupFields: "USERNAME_ONLY", // comma or not but not semi-colon
+    });
+
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+} // end of if (Meteor.isServer)
+
+```
+
+
+######Web Output:  
+
+![devImages/Selection_010.png](devImages/Selection_010.png) 
+
+

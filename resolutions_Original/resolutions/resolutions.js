@@ -44,6 +44,11 @@ if (Meteor.isClient) {
             Resolutions.remove(this._id);
         }, // end of click .delete
     }); // end of Template.resolution.events
+
+    Accounts.ui.config({
+        passwordSignupFields: "USERNAME_ONLY", // comma or not but not semi-colon
+    });
+
 } // end of if (Meteor.isClient)
 
 if (Meteor.isServer) {
