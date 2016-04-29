@@ -456,3 +456,94 @@ Template.resolution.events({
 ######Web Output:  
 
 ![devImages/Selection_008.png](devImages/Selection_008.png)
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor list
+
+autopublish            1.0.7  (For prototyping only) Publish the entire datab...
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+insecure               1.0.7  (For prototyping only) Allow all database write...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-var    
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor add reactive-dict
+                                              
+Changes to your project's package version selections:                                            
+reactive-dict  added, version 1.1.7                                                       
+reactive-dict: Reactive dictionary 
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor list
+
+autopublish            1.0.7  (For prototyping only) Publish the entire datab...
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+insecure               1.0.7  (For prototyping only) Allow all database write...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-dict          1.1.7  Reactive dictionary
+reactive-var           1.0.9  Reactive variable
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
+$ meteor show reactive-dict 
+
+Package: reactive-dict@1.1.7                  
+Maintainers: mdg                              
+Exports: ReactiveDict                         
+                                              
+This package provide `ReactiveDict`, a general-purpose reactive
+datatype for use with
+[tracker](https://atmospherejs.com/meteor/tracker). It provides all of
+the functionality of the `Session` object documented in the [main
+Meteor docs](https://docs.meteor.com/#session), such as reactive
+`get`, `set`, and `equals` functions.
+
+If you provide a name to its constructor, its contents will be saved across Hot
+Code Push client code updates.
+
+Example usage:
+
+    js
+var dict = new ReactiveDict('myDict');
+dict.set("weather", "cloudy");
+Tracker.autorun(function () { console.log("now " + dict.get("weather")); });
+// now cloudy
+dict.set("weather", "sunny");
+// now sunny
+
+For more information, see the [Tracker project
+page](https://www.meteor.com/tracker).
+                                              
+Recent versions:                              
+  1.1.2  September 28th, 2015                 
+  1.1.3  October 26th, 2015    installed
+  1.1.5  March 27th, 2016      installed
+  1.1.6  April 3rd, 2016       installed
+  1.1.7  April 15th, 2016      installed
+
+Older and pre-release versions of reactive-dict have been hidden. To see all 93
+versions, run 'meteor show --show-all reactive-dict'.
+
+```
+
+
+
+
+
