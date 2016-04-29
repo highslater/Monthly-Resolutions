@@ -457,6 +457,11 @@ Template.resolution.events({
 
 ![devImages/Selection_008.png](devImages/Selection_008.png)
 
+###Meteor For Everyone Tutorial #7 - Temporary Session Data in Meteor:  
+
+######Console Output:  
+
+
 ```Console  
 
 @mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorial/resolutions 
