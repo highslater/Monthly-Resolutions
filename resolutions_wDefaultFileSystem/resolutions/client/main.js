@@ -7,23 +7,33 @@ Resolutions = new Mongo.Collection('resolutions');
 
 Template.body.helpers({
     resolutions: function() {
-        return Resolutions.find();
+        if (Session.get('hideFinished')) {
+            return Resolutions.find({checked: {$ne: true}});
+        } // end of if 
+        else {
+            return Resolutions.find();
+        } // end of else    
     }, // end of resolutions
+
+    hideFinished: function() {
+        return Session.get('hideFinished');
+    }, // end of hideFinished
 }); // end of Template.body.helpers
 
 Template.body.events( {
     'submit .new-resolution': function(event) {
         var title = event.target.title.value;
-
         Resolutions.insert({
             title: title,
             createdAt: new Date()
         }); // end of Resolutions.insert
-
         event.target.title.value = "";
         return false;
-
     }, // end of submit .new-resolution
+
+    'change .hide-finished': function(event) {
+        Session.set('hideFinished', event.target.checked);
+    }, // end of change .hide-finished
 });
 
 Template.resolution.events({
