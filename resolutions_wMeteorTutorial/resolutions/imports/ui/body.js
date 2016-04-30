@@ -38,12 +38,7 @@ Template.body.events({
         const target = event.target;
         const text = target.text.value; 
         // Insert a task into the collection
-        Resolutions.insert({
-            text,
-            createdAt: new Date(), // current time
-            owner: Meteor.userId(),
-            username: Meteor.user().username
-        }); // end of Resolutions.insert
+            Meteor.call('resolutions.insert', text);
         // Clear form
         target.text.value = "";
     }, // end of submit .new-resolution
@@ -51,6 +46,4 @@ Template.body.events({
     'change .hide-finished input': function(event, instance) {
         instance.state.set('hideFinished', event.target.checked);
     }, // end of change .hide-finished input
-
-
 }); // end of Template.body.events
