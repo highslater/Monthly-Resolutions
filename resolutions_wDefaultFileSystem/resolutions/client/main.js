@@ -36,30 +36,34 @@ Template.body.events( {
 Template.resolution.events({
 
     'click .toggle-checked': function () {
-        Resolutions.update(this._id, {
-            $set: {
-                checked: !this.checked
-            } // end of $set
-        }); // end of Resolutions.update
+       Meteor.call('updateResolution', this._id, !this.checked);
     }, // end of click .toggle-checked
-
     'click .delete': function () {
-        Resolutions.remove(this._id);
+       Meteor.call('deleteResolution', this._id);
     }, // end of click .delete
 }); // end of Template.resolution.events
-
 
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
 });
 
-// Meteor.methods({ // add to server/main.js also
-//     addResolution: function(title) {
-//        Resolutions.insert({
-//             title: title,
-//             createdAt: new Date()
-//         }); // end of Resolutions.insert
-//    }, // end of addResolutions
-// }); // end of Meteor.methods
-
-
+/*
+Meteor.methods({ // add to client/main.js also (or not) or add a stub to client
+    addResolution: function(title) {
+        Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+    }, // end of addResolutions
+    updateResolution: function( id, checked) {
+        Resolutions.update(id, {
+            $set: {
+                checked: checked
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of updateResolution
+    deleteResolution: function(id) {
+        Resolutions.remove(id);
+    }, // end of deleteResolution
+}); // end of Meteor.methods
+*/
