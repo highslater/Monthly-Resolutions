@@ -19,10 +19,7 @@ if (Meteor.isClient) {
     Template.body.events( {
         'submit .new-resolution': function(event) {
             var title = event.target.title.value;
-            Resolutions.insert({
-                title: title,
-                createdAt: new Date()
-            }); // end of Resolutions.insert
+            Meteor.call('addResolutions', title);
             event.target.title.value = "";
             return false;
         }, // end of submit .new-resolution
@@ -54,3 +51,11 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
 } // end of if (Meteor.isServer)
 
+Meteor.methods({
+    addResolutions: function(title) {
+         Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+    }, // end of addResolutions
+}); // end of Meteor.methods
