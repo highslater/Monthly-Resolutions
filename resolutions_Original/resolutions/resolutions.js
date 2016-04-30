@@ -1,4 +1,7 @@
-Resolutions = new Mongo.Collection('resolutions');
+Resolutions = new Mongo.Collection('resolutions'); 
+    // because of its placement here,
+    // this is loaded on the client and the server.
+
 
 if (Meteor.isClient) {
 
@@ -19,7 +22,7 @@ if (Meteor.isClient) {
     Template.body.events( {
         'submit .new-resolution': function(event) {
             var title = event.target.title.value;
-            Meteor.call('addResolutions', title);
+            Meteor.call('addResolution', title);
             event.target.title.value = "";
             return false;
         }, // end of submit .new-resolution
@@ -31,14 +34,10 @@ if (Meteor.isClient) {
 
     Template.resolution.events({
         'click .toggle-checked': function() {
-            Resolutions.update(this._id, {
-                $set: {
-                    checked: !this.checked
-                } // end of $set
-            }); // end of Resolutions.update
+            Meteor.call('updateResolution', this._id, !this.checked )
         }, // end of click .toggle-checked
         'click .delete': function() {
-            Resolutions.remove(this._id);
+            Meteor.call('deleteResolution', this._id);
         }, // end of click .delete
     }); // end of Template.resolution.events
 
@@ -51,11 +50,22 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
 } // end of if (Meteor.isServer)
 
-Meteor.methods({
-    addResolutions: function(title) {
+Meteor.methods({     // because of its placement here,
+                                // this is loaded on the client and the server.
+    addResolution: function(title) {
          Resolutions.insert({
             title: title,
             createdAt: new Date()
         }); // end of Resolutions.insert
     }, // end of addResolutions
+    updateResolution: function(id, checked) {
+        Resolutions.update(id, {
+                $set: {
+                    checked: checked
+                } // end of $set
+            }); // end of Resolutions.update
+    }, // end of updateResolution
+    deleteResolution: function(id) {
+        Resolutions.remove(id);
+    }, // end of deleteResolution
 }); // end of Meteor.methods
