@@ -675,3 +675,39 @@ Accounts.ui.config({
 ![devImages/Selection_008.png](devImages/Selection_008.png)
 
 
+###Meteor For Everyone Tutorial #14 - Making Your Meteor App More Secure:  
+
+######Console Output:  
+
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions 
+$ meteor remove insecure
+                                              
+Changes to your project's package version selections:
+                                              
+insecure  removed from your project           
+
+insecure: removed dependency                  
+@mint64 ~/Monthly_Resolutions/resolutions_wDefaultFileSystem/resolutions 
+$ meteor list
+
+accounts-password      1.1.8  Password support for accounts
+accounts-ui            1.1.9  Simple templates to add login widgets to an app
+autopublish            1.0.7  (For prototyping only) Publish the entire datab...
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-var           1.0.9  Reactive variable
+session                1.1.5  Session variable
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+```
+
