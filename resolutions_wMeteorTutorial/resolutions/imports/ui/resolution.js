@@ -6,16 +6,9 @@ import './resolution.html';
 
 Template.resolution.events({
     'click .toggle-checked': function() {
-        Resolutions.update(
-            this._id, {
-            $set: {
-                checked: !this.checked
-            }, // end of $set
-        }); // end of Resolutions.update
+        Meteor.call('resolution.update', this._id, !this.checked);
     }, // end of click .toggle-checked
-
     'click .delete': function() {
-        Resolutions.remove(this._id);
+        Meteor.call('resolution.delete', this._id);
     }, // end of click .delete
-
 }); // end of Template.resolution.events

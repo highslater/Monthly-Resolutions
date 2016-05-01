@@ -5,13 +5,7 @@ import { check } from 'meteor/check';
 export const Resolutions = new Mongo.Collection('resolutions');
 
 Meteor.methods({
-
     'resolutions.insert': function(text) {
- //       check(text, String);
- //       // Make sure the user is logged in before inserting a task
- //       if (! this.userId) {
- //         throw new Meteor.Error('not-authorized');
- //       }
          Resolutions.insert({
             text,
             createdAt: new Date(), // current time
@@ -19,5 +13,14 @@ Meteor.methods({
             username: Meteor.users.findOne(this.userId).username
         }); // end of Resolutions.insert
     }, // end of resolutions.insert
-
+    'resolution.update': function(id, checked) {
+        Resolutions.update(id, {
+            $set: {
+                checked: checked,
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of resolutions.update
+    'resolution.delete': function(id) {
+        Resolutions.remove(id);
+    }, // end of resolutions.delete
 }); // end of Meteor.methods
