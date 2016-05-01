@@ -5,6 +5,8 @@ import './main.html';
 
 Resolutions = new Mongo.Collection('resolutions');
 
+Meteor.subscribe('resolutions');
+
 Template.body.helpers({
     resolutions: function() {
         if (Session.get('hideFinished')) {
