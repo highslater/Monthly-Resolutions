@@ -4,6 +4,13 @@ import { check } from 'meteor/check';
 
 export const Resolutions = new Mongo.Collection('resolutions');
 
+if (Meteor.isServer) {
+    Meteor.publish('resolutions', function resolutionsPublication() {
+        return Resolutions.find();
+    }); // end of Meteor.publish
+} // end of if (Meteor.isServer)
+
+
 Meteor.methods({
     'resolutions.insert': function(text) {
          Resolutions.insert({
