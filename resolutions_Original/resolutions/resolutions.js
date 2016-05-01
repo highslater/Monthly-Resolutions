@@ -33,6 +33,13 @@ if (Meteor.isClient) {
         }, // end of change hide-finished
     }); // end of Template.body.events
 
+    Template.resolution.helpers({
+        isOwner: function() {
+            return this.owner === Meteor.userId();
+        }, // end of isOwner
+    }); // end of Template.resolution.helpers
+
+
     Template.resolution.events({
         'click .toggle-checked': function() {
             Meteor.call('updateResolution', this._id, !this.checked )
@@ -40,6 +47,9 @@ if (Meteor.isClient) {
         'click .delete': function() {
             Meteor.call('deleteResolution', this._id);
         }, // end of click .delete
+        'click .toggle-private': function() {
+            Meteor.call('setPrivate', this._id, !this.private)
+        }, // end of click .toggle-private
     }); // end of Template.resolution.events
 
     Accounts.ui.config({
@@ -50,7 +60,12 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
     Meteor.publish("resolutions", function() {
-        return Resolutions.find();
+        return Resolutions.find({
+            $or: [
+                { private: {$ne: true} },
+                { owner: this.userId }
+            ]
+        });
     });
 } // end of if (Meteor.isServer)
 
@@ -59,10 +74,18 @@ Meteor.methods({     // because of its placement here,
     addResolution: function(title) {
          Resolutions.insert({
             title: title,
-            createdAt: new Date()
+            createdAt: new Date(),
+            owner: Meteor.userId()
         }); // end of Resolutions.insert
     }, // end of addResolutions
+
+
+
     updateResolution: function(id, checked) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
         Resolutions.update(id, {
                 $set: {
                     checked: checked
@@ -70,6 +93,24 @@ Meteor.methods({     // because of its placement here,
             }); // end of Resolutions.update
     }, // end of updateResolution
     deleteResolution: function(id) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
         Resolutions.remove(id);
     }, // end of deleteResolution
+
+
+
+    setPrivate: function(id, private) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
+        Resolutions.update(id, {
+                $set: {
+                    private: private
+                } // end of $set
+        }); // end of Resolutions.update
+    }, // end of setPrivate
 }); // end of Meteor.methods
