@@ -4,6 +4,7 @@ Resolutions = new Mongo.Collection('resolutions');
 
 
 if (Meteor.isClient) {
+    Meteor.subscribe("resolutions");
 
     Template.body.helpers({
         resolutions: function() {
@@ -48,6 +49,9 @@ if (Meteor.isClient) {
 } // end of if (Meteor.isClient)
 
 if (Meteor.isServer) {
+    Meteor.publish("resolutions", function() {
+        return Resolutions.find();
+    });
 } // end of if (Meteor.isServer)
 
 Meteor.methods({     // because of its placement here,

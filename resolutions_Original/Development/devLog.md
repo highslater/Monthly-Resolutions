@@ -938,3 +938,120 @@ Meteor.methods({     // because of its placement here,
 }); // end of Meteor.methods
 
 ```
+
+
+
+###Meteor For Everyone Tutorial #16 - Introduction to Publish & Subscribe:  
+
+######Console Output:  
+
+```Console  
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor remove autopublish
+                                              
+Changes to your project's package version selections:                                            
+autopublish  removed from your project        
+autopublish: removed dependency
+
+@mint64 ~/Monthly_Resolutions/resolutions_Original/resolutions 
+$ meteor list
+
+accounts-password      1.1.8  Password support for accounts
+accounts-ui            1.1.9  Simple templates to add login widgets to an app
+blaze-html-templates   1.0.4  Compile HTML templates into reactive UI with Me...
+ecmascript             0.4.3  Compiler plugin that supports ES2015+ in all .j...
+es5-shim               4.5.10  Shims and polyfills to improve ECMAScript 5 su...
+jquery                 1.11.8  Manipulate the DOM using CSS selectors
+meteor-base            1.0.4  Packages that every Meteor app needs
+mobile-experience      1.0.4  Packages for a great mobile user experience
+mongo                  1.1.7  Adaptor for using MongoDB and Minimongo over DDP
+reactive-var           1.0.9  Reactive variable
+session                1.1.5  Session variable
+standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by ...
+standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor ...
+tracker                1.0.13  Dependency tracker to allow reactive callbacks
+
+```
+
+######resolutions.js  
+
+```JavaScript  
+
+Resolutions = new Mongo.Collection('resolutions'); 
+    // because of its placement here,
+    // this is loaded on the client and the server.
+
+
+if (Meteor.isClient) {
+    Meteor.subscribe("resolutions");
+
+    Template.body.helpers({
+        resolutions: function() {
+            if (Session.get('hideFinished')) {
+               return Resolutions.find({checked: {$ne: true}}); 
+            }// end of if
+            else {
+                return Resolutions.find();
+            } // end of else
+        }, // end of resolutions
+        hideFinished: function() {
+            return Session.get('hideFinished');
+        }, // end of hideFinished
+    });// end of Template.body.helpers
+
+    Template.body.events( {
+        'submit .new-resolution': function(event) {
+            var title = event.target.title.value;
+            Meteor.call('addResolution', title);
+            event.target.title.value = "";
+            return false;
+        }, // end of submit .new-resolution
+
+        'change .hide-finished': function(event) { // don't forget the dot
+            Session.set('hideFinished', event.target.checked);
+        }, // end of change hide-finished
+    }); // end of Template.body.events
+
+    Template.resolution.events({
+        'click .toggle-checked': function() {
+            Meteor.call('updateResolution', this._id, !this.checked )
+        }, // end of click .toggle-checked
+        'click .delete': function() {
+            Meteor.call('deleteResolution', this._id);
+        }, // end of click .delete
+    }); // end of Template.resolution.events
+
+    Accounts.ui.config({
+        passwordSignupFields: "USERNAME_ONLY", // comma or not but not semi-colon
+    });
+
+} // end of if (Meteor.isClient)
+
+if (Meteor.isServer) {
+    Meteor.publish("resolutions", function() {
+        return Resolutions.find();
+    });
+} // end of if (Meteor.isServer)
+
+Meteor.methods({     // because of its placement here,
+                                // this is loaded on the client and the server.
+    addResolution: function(title) {
+         Resolutions.insert({
+            title: title,
+            createdAt: new Date()
+        }); // end of Resolutions.insert
+    }, // end of addResolutions
+    updateResolution: function(id, checked) {
+        Resolutions.update(id, {
+                $set: {
+                    checked: checked
+                } // end of $set
+            }); // end of Resolutions.update
+    }, // end of updateResolution
+    deleteResolution: function(id) {
+        Resolutions.remove(id);
+    }, // end of deleteResolution
+}); // end of Meteor.methods
+
+```
