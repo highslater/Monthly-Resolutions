@@ -1078,3 +1078,189 @@ Meteor.methods({ // add to client/main.js also (or not) or add a stub to client
 }); // end of Meteor.methods
 
 ```
+
+###Meteor For Everyone Tutorial #17 - Authorized Content Publishing & Methods Part 1:  
+
+###Meteor For Everyone Tutorial #18 - Authorized Content Publishing & Methods Part 2:
+
+######client/main.js  
+
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import './main.html';
+
+Resolutions = new Mongo.Collection('resolutions');
+Meteor.subscribe('resolutions');
+
+Template.body.helpers({
+    resolutions: function() {
+        if (Session.get('hideFinished')) {
+            return Resolutions.find({checked: {$ne: true}});
+        } // end of if 
+        else {
+            return Resolutions.find();
+        } // end of else    
+    }, // end of resolutions
+    hideFinished: function() {
+        return Session.get('hideFinished');
+    }, // end of hideFinished
+}); // end of Template.body.helpers
+
+Template.body.events( {
+    'submit .new-resolution': function(event) {
+        var title = event.target.title.value;
+        Meteor.call('addResolution', title); 
+        event.target.title.value = "";
+        return false;
+    }, // end of submit .new-resolution
+    'change .hide-finished': function(event) {
+        Session.set('hideFinished', event.target.checked);
+    }, // end of change .hide-finished
+});
+
+Template.resolution.helpers({
+    isOwner: function() {
+        return this.owner === Meteor.userId();
+    }, // end of isOwner
+}); // end of Template.resolution.helpers
+
+Template.resolution.events({
+    'click .toggle-checked': function () {
+       Meteor.call('updateResolution', this._id, !this.checked);
+    }, // end of click .toggle-checked
+    'click .toggle-private': function () {
+       Meteor.call('setPrivate', this._id, !this.private);
+    }, // end of click .toggle-private
+    'click .delete': function () {
+       Meteor.call('deleteResolution', this._id);
+    }, // end of click .delete
+}); // end of Template.resolution.events
+
+Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+});
+
+```
+
+######server/main.js  
+
+```JavaScript  
+
+import { Meteor } from 'meteor/meteor';
+
+Resolutions = new Mongo.Collection('resolutions');
+
+Meteor.startup(() => {
+  // code to run on server at startup
+});
+
+Meteor.publish('resolutions', function() {
+    return Resolutions.find({
+        $or: [
+            {private: { $ne: true }},
+            { owner: this.userId}
+        ] // end of $or
+    }); // end of Resolutions.find
+}); // end of Meteor.publish
+
+Meteor.methods({ // add to client/main.js also (or not) or add a stub to client
+    addResolution: function(title) {
+        Resolutions.insert({
+            title: title,
+            createdAt: new Date(),
+            owner: Meteor.userId()
+        }); // end of Resolutions.insert
+    }, // end of addResolutions
+    updateResolution: function( id, checked) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        } // end of if
+        Resolutions.update(id, {
+            $set: {
+                checked: checked
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of updateResolution
+    setPrivate: function(id, private) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        } // end of if
+        Resolutions.update(id, {
+            $set: {
+                private: private
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of setPrivate
+    deleteResolution: function(id) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        } // end of if
+        Resolutions.remove(id);
+    }, // end of deleteResolution
+}); // end of Meteor.methods
+
+```
+
+######client/main.html  
+
+```HTML  
+
+<head>
+    <title>simple</title>
+</head>
+
+<body>
+    <div class="container">
+        {{>loginButtons}}
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <label class="hide-finished">
+                <input type="checkbox" checked="{{hideFinished}}">
+                Hide Finished Resolutions
+            </label>
+        {{#if currentUser}}
+            <form class="new-resolution">
+                <input type="text" name="title" placeholder="A New Resolution">
+                <input type="submit" value="Submit">
+            </form>
+        {{/if}}
+        </header>
+        <ul>
+            {{#each resolutions}}
+            {{> resolution}}
+            {{/each}}
+      </ul> 
+  </div>
+</body>
+
+<template name="resolution">
+    <li class="{{#if checked}} checked {{/if}}">
+    {{#if isOwner}}
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+            <button class="toggle-private">
+                {{#if private}}
+                    Private
+                {{else}}
+                    Public
+                {{/if}}
+        </button>
+    {{/if}}
+        <span class="text">{{title}}</span>
+    {{#if isOwner}}
+        <button class="delete">Remove</button>
+    {{/if}}
+    </li>
+</template>
+
+```
+
+
+
+
+
