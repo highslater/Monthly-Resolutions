@@ -2,6 +2,9 @@
 
 ##Testing:
 
+
+######Console Output:  
+
 ```Console  
 
 @mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorialwTesting/resolutions 
