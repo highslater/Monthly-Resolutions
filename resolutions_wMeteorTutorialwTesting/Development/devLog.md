@@ -52,7 +52,8 @@ $ meteor test --driver-package practicalmeteor:mocha
 => Started your app.                          
 
 => App running at: http://localhost:3000/
-I20160503-15:49:59.140(-4)? MochaRunner.runServerTests: Starting server side tests with run id J4wkE4dTRu6KeLQ3m
+I20160503-15:49:59.140(-4)? MochaRunner.runServerTests: Starting server side tests
+with run id J4wkE4dTRu6KeLQ3m
 W20160503-15:49:59.142(-4)? (STDERR) MochaRunner.runServerTests: failures: 0
 
 ```
