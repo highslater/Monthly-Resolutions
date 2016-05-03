@@ -95,7 +95,12 @@ if (Meteor.isServer) {
 } // end of if
 
 ```
+ 
+######Web Output:  
 
+
+
+![./devImages/Selection_001.png](./devImages/Selection_001.png)
 
 
 
