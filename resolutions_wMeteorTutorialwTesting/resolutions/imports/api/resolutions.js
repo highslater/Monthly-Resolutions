@@ -24,7 +24,7 @@ Meteor.methods({
     }, // end of resolutions.insert
     'resolution.update': function(id, checked) {
         var res = Resolutions.findOne(id);
-        if (res.owner !== Meteor.userId()) {
+        if (res.owner !== this.userId) {
             throw new Meteor.Error('Not Authorized');
         }
         Resolutions.update(id, {
@@ -35,14 +35,14 @@ Meteor.methods({
     }, // end of resolutions.update
     'resolution.setPrivate': function(id, private) {
         const res = Resolutions.findOne(id);
-        if (res.owner !== Meteor.userId()) {
+        if (res.owner !== this.userId) {
             throw new Meteor.Error('Not Authorized');
         }
         Resolutions.update(id, { $set: { private: private } });
     }, // end of resolution.setPrivate
     'resolution.delete': function(id) {
         var res = Resolutions.findOne(id);
-        if (res.owner !== Meteor.userId()) {
+        if (res.owner !== this.userId) {
             throw new Meteor.Error('Not Authorized');
         }
         Resolutions.remove(id);
