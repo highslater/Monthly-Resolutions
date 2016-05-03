@@ -1,0 +1,21 @@
+<body>
+    <div class="container">
+        {{>loginButtons}}
+        <header>
+            <h1>Monthly Resolutions</h1>
+            <label class="hide-finished">
+                <input type="checkbox"> Hide Finished Resolutions
+            </label>
+            {{#if currentUser}}
+            <form class="new-resolution">
+                <input type="text" name="text" placeholder="A New Resolution">
+                <input type="submit" value="Submit">
+            </form>
+            {{/if}}
+            <h4>Unfinished ({{incompleteCount}})</h4>
+        </header>
+        <ul>
+            {{#each resolutions}} {{> resolution}} {{/each}}
+        </ul>
+    </div>
+</body>
