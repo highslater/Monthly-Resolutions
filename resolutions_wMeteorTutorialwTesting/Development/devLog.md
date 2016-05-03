@@ -42,7 +42,9 @@ standard-minifier-css  1.0.6  Standard css minifier used with Meteor apps by def
 standard-minifier-js   1.0.6  Standard javascript minifiers used with Meteor apps by ...
 tracker                1.0.13  Dependency tracker to allow reactive callbacks
 
-@mint64 ~/Programming/Meteor/LevelUpTuts/Monthly_Resolutions/resolutions_wMeteorTutorialwTesting/resolutions $ meteor test --driver-package practicalmeteor:mocha
+@mint64 ~/Monthly_Resolutions/resolutions_wMeteorTutorialwTesting/resolutions 
+$ meteor test --driver-package practicalmeteor:mocha
+
 [[[[[ Tests ]]]]]                             
 
 => Started proxy.                             
