@@ -6,9 +6,9 @@ if (Meteor.isServer) {
     Meteor.publish('resolutions', function resolutionsPublication() {
         return Resolutions.find({
             $or: [
-                    { private: { $ne: true } },
-                    { owner: this.userId }
-                ] // end of $or
+                { private: { $ne: true } },
+                { owner: this.userId },
+            ], // end of $or
         }); // end of return Resolutions.find
     }); // end of Meteor.publish
 } // end of if (Meteor.isServer)
@@ -34,7 +34,7 @@ Meteor.methods({
         }); // end of Resolutions.update
     }, // end of resolutions.update
     'resolution.setPrivate': function(id, private) {
-        var res = Resolutions.findOne(id);
+        const res = Resolutions.findOne(id);
         if (res.owner !== Meteor.userId()) {
             throw new Meteor.Error('Not Authorized');
         }
