@@ -1206,3 +1206,121 @@ Template.body.events({
 }); // end of Template.body.events
 
 ```
+
+
+###Meteor For Everyone Tutorial #17 - Authorized Content Publishing & Methods Part 1:  
+
+###Meteor For Everyone Tutorial #18 - Authorized Content Publishing & Methods Part 2:  
+
+
+######imports/ui/resolution.html  
+
+
+```HTML  
+
+<template name="resolution">
+    <li class="{{#if checked}} checked {{/if}}">
+        {{#if isOwner}}
+        <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+        <button class="toggle-private">
+            {{#if private}} Private {{else}} Public {{/if}}
+        </button>{{/if}}
+        <span class="text"><strong>{{username}}</strong> - {{text}}</span> {{#if isOwner}}
+        <button class="delete">&times;</button>
+        {{/if}}
+    </li>
+</template>
+
+```
+
+
+######imports/ui/resolution.js  
+
+
+```JavaScript  
+
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Resolutions } from '../api/resolutions.js';
+import './body.html';
+import './resolution.html';
+
+Template.resolution.helpers({
+    isOwner: function() {
+        return this.owner === Meteor.userId();
+    }, // end of isOwner
+}); // end of Template.resolution.helpers
+
+Template.resolution.events({
+    'click .toggle-checked': function() {
+        Meteor.call('resolution.update', this._id, !this.checked);
+    }, // end of click .toggle-checked
+    'click .toggle-private': function() {
+        Meteor.call('resolution.setPrivate', this._id, !this.private)
+    }, // end of click .toggle-private
+    'click .delete': function() {
+        Meteor.call('resolution.delete', this._id);
+    }, // end of click .delete
+}); // end of Template.resolution.events
+
+```
+
+
+######imports/api/resolutions.js  
+
+
+```JavaScript  
+
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+export const Resolutions = new Mongo.Collection('resolutions');
+
+if (Meteor.isServer) {
+    Meteor.publish('resolutions', function resolutionsPublication() {
+        return Resolutions.find({
+            $or: [
+                    { private: { $ne: true } },
+                    { owner: this.userId }
+                ] // end of $or
+        }); // end of return Resolutions.find
+    }); // end of Meteor.publish
+} // end of if (Meteor.isServer)
+
+Meteor.methods({
+    'resolutions.insert': function(text) {
+        Resolutions.insert({
+            text,
+            createdAt: new Date(),
+            owner: Meteor.userId(),
+            username: Meteor.users.findOne(this.userId).username
+        }); // end of Resolutions.insert
+    }, // end of resolutions.insert
+    'resolution.update': function(id, checked) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
+        Resolutions.update(id, {
+            $set: {
+                checked: checked,
+            } // end of $set
+        }); // end of Resolutions.update
+    }, // end of resolutions.update
+    'resolution.setPrivate': function(id, private) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
+        Resolutions.update(id, { $set: { private: private } });
+    }, // end of resolution.setPrivate
+    'resolution.delete': function(id) {
+        var res = Resolutions.findOne(id);
+        if (res.owner !== Meteor.userId()) {
+            throw new Meteor.Error('Not Authorized');
+        }
+        Resolutions.remove(id);
+    }, // end of resolutions.delete
+}); // end of Meteor.methods
+
+```
+
